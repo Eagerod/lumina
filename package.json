@@ -1,0 +1,26 @@
+{
+	"name": "restify-validate",
+	"description": "Route-by-route Restify request validator.",
+	"version": "0.0.1",
+	"keywords":[
+		"restify",
+		"REST",
+		"validation"
+	],
+	"private":true,
+	"dependencies": {
+		"restify" : "3.0.2"
+	},
+	"devDependencies":{
+		"request" : "2.55.0",
+		"jsdoc":"<=3.3.0"
+	},
+	"author":{
+		"name":"Aleem Haji",
+		"author":"hajial@gmail.com"
+	},
+	"scripts":{
+		"test":"nodeunit tests/test.js",
+		"docs":"./node_modules/.bin/jsdoc --recurse ./lib"
+	}
+}
