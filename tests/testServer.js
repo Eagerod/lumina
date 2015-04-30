@@ -14,6 +14,7 @@ server.use(restify.bodyParser());
 var servervalidator = new restifyvalidate("handler");
 servervalidator.use("requiredBodyFields", restifyvalidate.requiredBodyFieldValidator());
 servervalidator.use("restrictedBodyFields", restifyvalidate.restrictedBodyFieldValidator());
+servervalidator.use("permittedBodyFields", restifyvalidate.permittedBodyFieldValidator());
 
 function defaultHandler(req, res, next) {
 	res.send(200);
@@ -28,6 +29,11 @@ server.put("/validation/body", servervalidator.validate({
 	requiredBodyFields : ["a", "b"],
 	restrictedBodyFields : ["d", "e"],
 	handler : defaultHandler
-}))
+}));
+
+server.put("/validation/onlybody", servervalidator.validate({
+	permittedBodyFields : ["a", "b"],
+	handler : defaultHandler
+}));
 
 module.exports = server;

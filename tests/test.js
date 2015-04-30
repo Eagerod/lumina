@@ -41,5 +41,16 @@ module.exports = {
 				test.done();
 			});
 		});
+	},
+	testPermittedBodyFieldValidation : function(test) {
+		test.expect(3);
+		request({uri:"http://localhost:8080/validation/onlybody", method:"PUT", json : { "a" : 1, "b" : 2 }}, function(err, resp, body) {
+			test.equal(resp.statusCode, 200);
+			request({uri:"http://localhost:8080/validation/onlybody", method:"PUT", json : { "a" : 1, "b" : 3, "f" : 5, "g" : 9}}, function(err, resp, body) {
+				test.equal(resp.statusCode, 403)
+				test.deepEqual(body, { code: "ForbiddenError", message: "Cannot send fields: (f,g)" });
+				test.done();
+			});
+		});
 	}
 }
