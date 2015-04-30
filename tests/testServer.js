@@ -11,7 +11,7 @@ server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
 server.use(restify.bodyParser());
 
-var servervalidator = new restifyvalidate("handler");
+var servervalidator = new restifyvalidate();
 servervalidator.use("requiredBodyFields", restifyvalidate.requiredBodyFieldValidator());
 servervalidator.use("restrictedBodyFields", restifyvalidate.restrictedBodyFieldValidator());
 servervalidator.use("permittedBodyFields", restifyvalidate.permittedBodyFieldValidator());

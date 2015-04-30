@@ -16,7 +16,7 @@ Set up your Restify server to use the restify-validate:
 ```javascript
 var rv = require("restify-validate");
 
-var validate = new rv("handler");
+var validate = new rv();
 
 validate.use("requiredBodyFields", rv.requiredBodyFieldValidator());
 validate.use("requiresAuthentication", function(forceAuth) {
