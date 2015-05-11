@@ -9,7 +9,7 @@
 	],
 	"private":true,
 	"dependencies": {
-		"restify" : "3.0.2"
+		"restify" : "<=3.0.2"
 	},
 	"devDependencies":{
 		"request" : "2.55.0",
