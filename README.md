@@ -1,25 +1,25 @@
-# restify-validate
+# Lumina
 
-restify-validate is a package designed to let you create custom route-by-route 
-validation methods for your Restify server. 
-Validation methods are added to a middleware manager that allows you to select
+Lumina is a package designed to let you create custom route-by-route preprocessing
+and validation methods for your Restify server. 
+Processing methods are added to a middleware manager that allows you to select
 which routes have which validation methods executed on them.
 
 ## Usage
 
-Start out by installing restify-validate using npm:
+Start out by installing Lumina using npm:
 
-    npm intall restify-validate
+    npm intall lumina
 
-Set up your Restify server to use the restify-validate:
+Set up your Restify server to use Lumina:
 
 ```javascript
-var rv = require("restify-validate");
+var lumina = require("lumina");
 
-var validate = new rv();
+var lumen = new lumina();
 
-validate.use("requiredBodyFields", rv.requiredBodyFieldValidator());
-validate.use("requiresAuthentication", function(forceAuth) {
+lumen.use("requiredBodyFields", lumina.requiredBodyFieldValidator());
+lumen.use("requiresAuthentication", function(forceAuth) {
 	return function(req, res, next, pass) {
 		if ( forceAuth == false ) {
 			return pass();
@@ -35,7 +35,7 @@ validate.use("requiresAuthentication", function(forceAuth) {
 Then set up your routes to take advantage of the validators that are set up.
 
 ```javascript
-server.post("/models", validate.validate({
+server.post("/models", lumen.illuminate({
 	requiredBodyFields : ["fieldA", "fieldB"],
 	handler : function(req, res, next) {
 		Model.create({a : req.body.fieldA, b : req.body.fieldB}, function() {
@@ -45,7 +45,7 @@ server.post("/models", validate.validate({
 	}
 }));
 
-server.get("/models/:modelId", validate.validate({
+server.get("/models/:modelId", lumen.illuminate({
 	requiresAuthentication : true,
 	handler : function(req, res, next) {
 		Model.fetch(req.params.modelId, function(model) {
@@ -53,7 +53,7 @@ server.get("/models/:modelId", validate.validate({
 			return next();
 		});
 	}
-}))
+}));
 ```
 
 ### Features

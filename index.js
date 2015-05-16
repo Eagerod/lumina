@@ -1,1 +1,1 @@
-module.exports = require("./lib/restify-validate");
+module.exports = require("./lib/lumina");

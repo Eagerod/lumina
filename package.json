@@ -1,5 +1,5 @@
 {
-	"name": "restify-validate",
+	"name": "lumina",
 	"description": "Route-by-route Restify request validator.",
 	"version": "0.0.1",
 	"keywords":[
@@ -9,7 +9,7 @@
 	],
 	"private":true,
 	"dependencies": {
-		"restify" : "<=3.0.2"
+		"restify" : "*"
 	},
 	"devDependencies":{
 		"request" : "2.55.0",
