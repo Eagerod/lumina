@@ -7,7 +7,11 @@
 		"REST",
 		"validation"
 	],
-	"private":true,
+	"license":"MIT",
+	"repository": { 
+		"type":"git",
+		"url":"https://github.com/Eagerod/lumina.git"
+	},
 	"dependencies": {
 		"restify" : "*"
 	},
