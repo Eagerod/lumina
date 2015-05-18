@@ -9,7 +9,7 @@ which routes have which validation methods executed on them.
 
 Start out by installing Lumina using npm:
 
-    npm intall lumina
+    npm install lumina
 
 Set up your Restify server to use Lumina:
 
