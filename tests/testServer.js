@@ -12,6 +12,7 @@ server.use(restify.queryParser());
 server.use(restify.bodyParser());
 
 var lumen = new lumina();
+lumen.use("requiredHeaders", lumina.requiredHeaderValidator());
 lumen.use("requiredBodyFields", lumina.requiredBodyFieldValidator());
 lumen.use("restrictedBodyFields", lumina.restrictedBodyFieldValidator());
 lumen.use("permittedBodyFields", lumina.permittedBodyFieldValidator());
@@ -33,6 +34,11 @@ server.put("/validation/body", lumen.illuminate({
 
 server.put("/validation/onlybody", lumen.illuminate({
 	permittedBodyFields : ["a", "b"],
+	handler : defaultHandler
+}));
+
+server.put("/validation/headers", lumen.illuminate({
+	requiredHeaders : ["x-application-key", "x-client-id"],
 	handler : defaultHandler
 }));
 

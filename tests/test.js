@@ -52,5 +52,16 @@ module.exports = {
 				test.done();
 			});
 		});
+	}, 
+	testHeaderValidation : function(test) {
+		test.expect(3);
+		request({uri:"http://localhost:8080/validation/headers", method:"PUT", headers : { "x-application-key" : 1, "x-client-id" : 2 }}, function(err, resp, body) {
+			test.equal(resp.statusCode, 200);
+			request({uri:"http://localhost:8080/validation/headers", method:"PUT", json : { "a" : 1, "b" : 3, "f" : 5, "g" : 9}}, function(err, resp, body) {
+				test.equal(resp.statusCode, 403)
+				test.deepEqual(body, { code: "ForbiddenError", message: "Must send headers: (x-application-key,x-client-id)" });
+				test.done();
+			});
+		});
 	}
 }
