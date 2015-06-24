@@ -21,35 +21,44 @@ module.exports = {
 		});
 	},
 	testRequiredBodyFieldValidation : function(test) {
-		test.expect(3);
+		test.expect(4);
 		request({uri:"http://localhost:8080/validation/body", method:"PUT", json : { "a" : 1, "b" : 2, "c" : 3}}, function(err, resp, body) {
 			test.equal(resp.statusCode, 200);
-			request({uri:"http://localhost:8080/validation/body", method:"PUT", json : { "a" : 1, "c" : 3}}, function(err, resp, body) {
-				test.equal(resp.statusCode, 403)
-				test.deepEqual(body, { code: "ForbiddenError", message: "Must send fields: (b)" });
-				test.done();
+			request({uri:"http://localhost:8080/validation/body", method:"PUT"}, function(err, resp, body) {
+				test.equal(resp.statusCode, 403);
+				request({uri:"http://localhost:8080/validation/body", method:"PUT", json : { "a" : 1, "c" : 3}}, function(err, resp, body) {
+					test.equal(resp.statusCode, 403)
+					test.deepEqual(body, { code: "ForbiddenError", message: "Must send fields: (b)" });
+					test.done();
+				});
 			});
 		});
 	},
 	testRestrictedBodyFieldValidation : function(test) {
-		test.expect(3);
-		request({uri:"http://localhost:8080/validation/body", method:"PUT", json : { "a" : 1, "b" : 2 }}, function(err, resp, body) {
+		test.expect(4);
+		request({uri:"http://localhost:8080/validation/body", method:"PUT"}, function(err, resp, body) {
 			test.equal(resp.statusCode, 200);
-			request({uri:"http://localhost:8080/validation/body", method:"PUT", json : { "a" : 1, "b" : 3, "d" : 4}}, function(err, resp, body) {
-				test.equal(resp.statusCode, 403)
-				test.deepEqual(body, { code: "ForbiddenError", message: "Cannot send fields: (d)" });
-				test.done();
+			request({uri:"http://localhost:8080/validation/body", method:"PUT", json : { "a" : 1, "b" : 2 }}, function(err, resp, body) {
+				test.equal(resp.statusCode, 200);
+				request({uri:"http://localhost:8080/validation/body", method:"PUT", json : { "a" : 1, "b" : 3, "d" : 4}}, function(err, resp, body) {
+					test.equal(resp.statusCode, 403)
+					test.deepEqual(body, { code: "ForbiddenError", message: "Cannot send fields: (d)" });
+					test.done();
+				});
 			});
 		});
 	},
 	testPermittedBodyFieldValidation : function(test) {
-		test.expect(3);
+		test.expect(4);
 		request({uri:"http://localhost:8080/validation/onlybody", method:"PUT", json : { "a" : 1, "b" : 2 }}, function(err, resp, body) {
 			test.equal(resp.statusCode, 200);
-			request({uri:"http://localhost:8080/validation/onlybody", method:"PUT", json : { "a" : 1, "b" : 3, "f" : 5, "g" : 9}}, function(err, resp, body) {
-				test.equal(resp.statusCode, 403)
-				test.deepEqual(body, { code: "ForbiddenError", message: "Cannot send fields: (f,g)" });
-				test.done();
+			request({uri:"http://localhost:8080/validation/onlybody", method:"PUT"}, function(err, resp, body) {
+				test.equal(resp.statusCode, 200);
+				request({uri:"http://localhost:8080/validation/onlybody", method:"PUT", json : { "a" : 1, "b" : 3, "f" : 5, "g" : 9}}, function(err, resp, body) {
+					test.equal(resp.statusCode, 403)
+					test.deepEqual(body, { code: "ForbiddenError", message: "Cannot send fields: (f,g)" });
+					test.done();
+				});
 			});
 		});
 	}, 
