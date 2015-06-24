@@ -22,24 +22,35 @@ function defaultHandler(req, res, next) {
 	return next();
 }
 
-server.get('/validation/none', lumen.illuminate({
-	handler : defaultHandler
-}));
+var routes = [{
+	method: "get",
+	path: "/validation/none"
+}, {
+	method: "put",
+	path: "/validation/body/required",
+	requiredBodyFields: ["a", "b"]
+}, {
+	method: "put",
+	path: "/validation/body/restricted",
+	restrictedBodyFields: ["d", "e"]
+}, {
+	method: "put",
+	path: "/validation/body/permitted",
+	permittedBodyFields: ["a", "b"]
+}, {
+	method: "put",
+	path: "/validation/headers/required",
+	requiredHeaders: ["x-application-key", "x-client-id"]
+}]
 
-server.put("/validation/body", lumen.illuminate({
-	requiredBodyFields : ["a", "b"],
-	restrictedBodyFields : ["d", "e"],
-	handler : defaultHandler
-}));
-
-server.put("/validation/onlybody", lumen.illuminate({
-	permittedBodyFields : ["a", "b"],
-	handler : defaultHandler
-}));
-
-server.put("/validation/headers", lumen.illuminate({
-	requiredHeaders : ["x-application-key", "x-client-id"],
-	handler : defaultHandler
-}));
+for ( var i = 0; i < routes.length; ++i ) {
+	var d = routes[i];
+	var m = d.method;
+	var r = d.path;
+	delete d.method
+	delete d.path;
+	d.handler = defaultHandler;
+	server[m](r, lumen.illuminate(d));
+}
 
 module.exports = server;
