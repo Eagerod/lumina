@@ -41,7 +41,7 @@
         "no-underscore-dangle": 0,
         "quotes": [2, "double"],
         "space-return-throw-case": 2,
-        "semi": 1,
+        "semi": 2,
         "no-shadow": 1
     },
     "env": {

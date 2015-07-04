@@ -43,13 +43,13 @@ var routes = [{
     method: "put",
     path: "/validation/headers/required",
     requiredHeaders: ["x-application-key", "x-client-id"]
-}]
+}];
 
 for ( var i = 0; i < routes.length; ++i ) {
     var d = routes[i];
     var m = d.method;
     var r = d.path;
-    delete d.method
+    delete d.method;
     delete d.path;
     d.handler = defaultHandler;
     server[m](r, lumen.illuminate(d));
