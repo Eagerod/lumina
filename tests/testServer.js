@@ -1,21 +1,23 @@
+"use strict";
+
 var restify = require("restify");
 
-var lumina = require("../index");
+var Lumina = require("../index");
 
 var server = restify.createServer({
-    name: 'Restify-Validate Server',
-    version: '1.0.0'
+    name: "Restify-Validate Server",
+    version: "1.0.0"
 });
 
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
 server.use(restify.bodyParser());
 
-var lumen = new lumina();
-lumen.use("requiredHeaders", lumina.requiredHeaderValidator());
-lumen.use("requiredBodyFields", lumina.requiredBodyFieldValidator());
-lumen.use("restrictedBodyFields", lumina.restrictedBodyFieldValidator());
-lumen.use("permittedBodyFields", lumina.permittedBodyFieldValidator());
+var lumen = new Lumina();
+lumen.use("requiredHeaders", Lumina.requiredHeaderValidator());
+lumen.use("requiredBodyFields", Lumina.requiredBodyFieldValidator());
+lumen.use("restrictedBodyFields", Lumina.restrictedBodyFieldValidator());
+lumen.use("permittedBodyFields", Lumina.permittedBodyFieldValidator());
 
 function defaultHandler(req, res, next) {
     res.send(200);

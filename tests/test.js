@@ -3,8 +3,7 @@
 var request = require("request");
 var server = require("./testServer");
 
-function testRoute(test, route, method, json, headers, expectStatusCode, expectBody)
-{
+function testRoute(test, route, method, json, headers, expectStatusCode, expectBody) {
     var testCount = 2 + (expectBody != null ? 2 : 0);
     test.expect(testCount);
     request({uri: "http://localhost:8080/validation" + route, method: method, json: json, headers: headers}, function(err, resp, body) {
@@ -21,8 +20,7 @@ function testRoute(test, route, method, json, headers, expectStatusCode, expectB
     });
 }
 
-function makeTest(route, method, json, headers, expectStatusCode, expectBody)
-{
+function makeTest(route, method, json, headers, expectStatusCode, expectBody) {
     return function(test) {
         testRoute(test, route, method, json, headers, expectStatusCode, expectBody)
     }
