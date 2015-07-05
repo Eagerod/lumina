@@ -3,8 +3,7 @@
 var request = require("request");
 var server = require("./testServer");
 
-function testRoute(test, route, method, json, headers, expectStatusCode, expectBody)
-{
+function testRoute(test, route, method, json, headers, expectStatusCode, expectBody) {
     var testCount = 2 + (expectBody != null ? 2 : 0);
     test.expect(testCount);
     request({uri: "http://localhost:8080/validation" + route, method: method, json: json, headers: headers}, function(err, resp, body) {
@@ -14,18 +13,17 @@ function testRoute(test, route, method, json, headers, expectStatusCode, expectB
         test.ifError(err);
         test.equal(resp.statusCode, expectStatusCode);
         if ( expectBody ) {
-            test.ok(body)
+            test.ok(body);
             test.deepEqual(body, expectBody);
         }
         test.done();
     });
 }
 
-function makeTest(route, method, json, headers, expectStatusCode, expectBody)
-{
+function makeTest(route, method, json, headers, expectStatusCode, expectBody) {
     return function(test) {
-        testRoute(test, route, method, json, headers, expectStatusCode, expectBody)
-    }
+        testRoute(test, route, method, json, headers, expectStatusCode, expectBody);
+    };
 }
 
 module.exports = {
@@ -60,4 +58,4 @@ module.exports = {
         testFailure: makeTest("/headers/required", "PUT", null, { "x-application-key": 1 }, 403, { code: "ForbiddenError", message: "Must send headers: (x-client-id)" }),
         testNoHeaders: makeTest("/headers/required", "PUT", null, null, 403, { code: "ForbiddenError", message: "Must send headers: (x-application-key,x-client-id)" })
     }
-}
+};

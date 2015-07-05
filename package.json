@@ -2,29 +2,31 @@
 	"name": "lumina",
 	"description": "Route-by-route Restify request validator.",
 	"version": "0.0.4",
-	"keywords":[
+	"keywords": [
 		"restify",
 		"REST",
 		"validation"
 	],
-	"license":"MIT",
+	"license": "MIT",
 	"repository": { 
-		"type":"git",
-		"url":"https://github.com/Eagerod/lumina.git"
+		"type": "git",
+		"url": "https://github.com/Eagerod/lumina.git"
 	},
 	"dependencies": {
-		"restify" : "*"
+		"restify": "*"
 	},
-	"devDependencies":{
+	"devDependencies": {
 		"request" : "2.55.0",
-		"jsdoc":"<=3.3.0"
+		"jsdoc": "<=3.3.0",
+		"eslint": "0.24.0"
 	},
-	"author":{
-		"name":"Aleem Haji",
-		"author":"hajial@gmail.com"
+	"author": {
+		"name": "Aleem Haji",
+		"author": "hajial@gmail.com"
 	},
-	"scripts":{
-		"test":"nodeunit tests/test.js",
-		"docs":"./node_modules/.bin/jsdoc --recurse ./lib"
+	"scripts": {
+		"test": "nodeunit tests/test.js",
+		"docs": "./node_modules/.bin/jsdoc --recurse ./lib",
+		"lint": "./node_modules/.bin/eslint ."
 	}
 }

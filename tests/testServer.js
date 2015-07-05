@@ -1,21 +1,23 @@
+"use strict";
+
 var restify = require("restify");
 
-var lumina = require("../index");
+var Lumina = require("../index");
 
 var server = restify.createServer({
-    name: 'Restify-Validate Server',
-    version: '1.0.0'
+    name: "Restify-Validate Server",
+    version: "1.0.0"
 });
 
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
 server.use(restify.bodyParser());
 
-var lumen = new lumina();
-lumen.use("requiredHeaders", lumina.requiredHeaderValidator());
-lumen.use("requiredBodyFields", lumina.requiredBodyFieldValidator());
-lumen.use("restrictedBodyFields", lumina.restrictedBodyFieldValidator());
-lumen.use("permittedBodyFields", lumina.permittedBodyFieldValidator());
+var lumen = new Lumina();
+lumen.use("requiredHeaders", Lumina.requiredHeaderValidator());
+lumen.use("requiredBodyFields", Lumina.requiredBodyFieldValidator());
+lumen.use("restrictedBodyFields", Lumina.restrictedBodyFieldValidator());
+lumen.use("permittedBodyFields", Lumina.permittedBodyFieldValidator());
 
 function defaultHandler(req, res, next) {
     res.send(200);
@@ -41,13 +43,13 @@ var routes = [{
     method: "put",
     path: "/validation/headers/required",
     requiredHeaders: ["x-application-key", "x-client-id"]
-}]
+}];
 
 for ( var i = 0; i < routes.length; ++i ) {
     var d = routes[i];
     var m = d.method;
     var r = d.path;
-    delete d.method
+    delete d.method;
     delete d.path;
     d.handler = defaultHandler;
     server[m](r, lumen.illuminate(d));
