@@ -17,8 +17,8 @@
     },
     "devDependencies": {
         "request" : "2.55.0",
-        "jsdoc": "<=3.3.0",
-        "eslint": "0.24.0",
+        "jsdoc": "3.3.2",
+        "eslint": "0.24.1",
         "nodeunit": "0.9.1",
         "istanbul": "0.3.17"
     },
@@ -28,7 +28,7 @@
     },
     "scripts": {
         "test": "./node_modules/.bin/nodeunit tests/test.js",
-        "docs": "./node_modules/.bin/jsdoc --recurse ./lib",
+        "docs": "./node_modules/.bin/jsdoc --recurse ./lib -d docs",
         "lint": "./node_modules/.bin/eslint .",
         "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/nodeunit tests/test.js"
     }
