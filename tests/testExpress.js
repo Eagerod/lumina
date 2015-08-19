@@ -6,8 +6,6 @@ var Lumina = require("../index");
 
 var server = express();
 
-// server.use(restify.acceptParser(server.acceptable));
-// server.use(restify.queryParser());
 server.use(require("body-parser").json());
 
 var lumen = new Lumina();
