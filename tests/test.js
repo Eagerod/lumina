@@ -1,21 +1,27 @@
 "use strict";
 
 var request = require("request");
-var server = require("./testServer");
+var async = require("async");
+var express = require("./testExpress");
+var restify = require("./testServer");
 
 function testRoute(test, route, method, json, headers, expectStatusCode, expectBody) {
-    var testCount = 2 + (expectBody != null ? 2 : 0);
+    var testCount = (2 + (expectBody != null ? 2 : 0)) * 2;
     test.expect(testCount);
-    request({uri: "http://localhost:8080/validation" + route, method: method, json: json, headers: headers}, function(err, resp, body) {
-        if ( typeof body === "string" && body.length > 0 ) { // Request is a finicky package.
-            body = JSON.parse(body);
-        }
-        test.ifError(err);
-        test.equal(resp.statusCode, expectStatusCode);
-        if ( expectBody ) {
-            test.ok(body);
-            test.deepEqual(body, expectBody);
-        }
+    async.each(["8080", "8081"], function(port, cb) {
+        request({uri: "http://localhost:" + port + "/validation" + route, method: method, json: json, headers: headers}, function(err, resp, body) {
+            if ( typeof body === "string" && body.length > 0 ) { // Request is a finicky package.
+                body = JSON.parse(body);
+            }
+            test.ifError(err);
+            test.equal(resp.statusCode, expectStatusCode);
+            if ( expectBody ) {
+                test.ok(body);
+                test.deepEqual(body, expectBody);
+            }
+            cb();
+        });
+    }, function() {
         test.done();
     });
 }
@@ -29,13 +35,15 @@ function makeTest(route, method, json, headers, expectStatusCode, expectBody) {
 module.exports = {
     behavioralTests: {
         setUp: function(done) {
-            server.listen(8080, function() {
-                done();
+            var self = this;
+            restify.listen(8080, function() {
+                self.express = express.listen(8081, done);
             });
         },
         tearDown: function(done) {
-            server.close(function() {
-                done();
+            var self = this;
+            restify.close(function() {
+                self.express.close(done);
             });
         },
         testNoValidation: makeTest("/none", "GET", null, null, 200),
