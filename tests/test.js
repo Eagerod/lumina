@@ -56,6 +56,7 @@ module.exports = {
         },
         testHeaderValidation: {
             testSuccess: makeTest("/headers/required", "PUT", null, { "x-application-key": 1, "x-client-id": 2 }, 200),
+            testSuccessCaseInsensitive: makeTest("/headers/required", "PUT", null, { "X-Application-Key": 1, "X-Client-Id": 2 }, 200),
             testFailure: makeTest("/headers/required", "PUT", null, { "x-application-key": 1 }, 403, { code: "ForbiddenError", message: "Must send headers: (x-client-id)" }),
             testNoHeaders: makeTest("/headers/required", "PUT", null, null, 403, { code: "ForbiddenError", message: "Must send headers: (x-application-key,x-client-id)" })
         }
