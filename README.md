@@ -39,23 +39,23 @@ Then set up your routes to take advantage of the validators that are set up.
 
 ```javascript
 server.post("/models", lumen.illuminate({
-	requiredBodyFields: ["fieldA", "fieldB"],
-	handler: function(req, res, next) {
-		Model.create({a: req.body.fieldA, b: req.body.fieldB}, function() {
-			res.send(201);
-			return next();
-		});
-	}
+    requiredBodyFields: ["fieldA", "fieldB"],
+    handler: function(req, res, next) {
+        Model.create({a: req.body.fieldA, b: req.body.fieldB}, function() {
+            res.send(201);
+            return next();
+        });
+    }
 }));
 
 server.get("/models/:modelId", lumen.illuminate({
-	requiresAuthentication: true,
-	handler: function(req, res, next) {
-		Model.fetch(req.params.modelId, function(model) {
-			res.send(200, model);
-			return next();
-		});
-	}
+    requiresAuthentication: true,
+    handler: function(req, res, next) {
+        Model.fetch(req.params.modelId, function(model) {
+            res.send(200, model);
+            return next();
+        });
+    }
 }));
 ```
 
