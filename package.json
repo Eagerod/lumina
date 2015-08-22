@@ -1,22 +1,22 @@
 {
     "name": "lumina",
     "description": "Route-by-route Restify+Express request validator.",
-    "version": "0.0.5",
+    "version": "0.1.0",
     "keywords": [
         "restify",
         "express",
         "REST",
-        "validation"
+        "validation",
+        "middleware"
     ],
     "license": "MIT",
-    "repository": { 
+    "repository": {
         "type": "git",
         "url": "https://github.com/Eagerod/lumina.git"
     },
-    "dependencies": {
-    },
+    "dependencies": {},
     "devDependencies": {
-        "request" : "2.55.0",
+        "request": "2.55.0",
         "restify": "4.0.0",
         "express": "4.13.3",
         "body-parser": "1.13.3",
