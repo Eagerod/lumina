@@ -1,9 +1,7 @@
 # Lumina
 
-Lumina is a package designed to let you create custom route-by-route preprocessing
-and validation methods for your Restify or express servers. 
-Processing methods are added to a middleware manager that allows you to select
-which routes have which validation methods executed on them.
+Lumina is a package designed to let you create custom route-by-route preprocessing and validation methods for your Restify or Express server. 
+Processing methods are added to a middleware manager that allows you to select which routes have which validation methods executed on them.
 
 ## Usage
 
@@ -20,20 +18,20 @@ var lumen = new lumina();
 
 lumen.use("requiredBodyFields", lumina.requiredBodyFieldValidator());
 lumen.use("requiresAuthentication", function(forceAuth) {
-	return function(req, res, next, pass) {
-		if ( forceAuth == false ) {
-			return pass();
-		}
-		if ( req.authorization.credentials == "valid auth token" ) {
-			return pass();
-		}
+    return function(req, res, next, pass) {
+        if ( forceAuth === false ) {
+            return pass();
+        }
+        if ( req.authorization.credentials === "valid auth token" ) {
+            return pass();
+        }
 		res.status(401);
 		res.send({
 			code: "UnauthorizedError",
 			message: "You aren't authorized to access this resource"
 		});
 		return next();
-	}
+    };
 });
 ```
 
