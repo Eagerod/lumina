@@ -13,7 +13,7 @@ server.use(restify.bodyParser());
 
 serverSetup(server);
 
-module.exports = require("./testLumina");
+module.exports = require("./luminaConfig");
 
 module.exports.setUp = function(done) {
     server.listen(8080, done);

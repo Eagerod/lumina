@@ -11,7 +11,7 @@ server.use(bodyParser.json());
 
 serverSetup(server);
 
-module.exports = require("./testLumina");
+module.exports = require("./luminaConfig");
 
 module.exports.setUp = function(done) {
     this.express = server.listen(8080, done);
