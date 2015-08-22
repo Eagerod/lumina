@@ -1,15 +1,6 @@
 "use strict";
 
-var restify = require("restify");
-
 var Lumina = require("../index");
-
-var server = restify.createServer({
-    name: "Restify-Validate Server",
-    version: "1.0.0"
-});
-
-server.use(restify.bodyParser());
 
 var lumen = new Lumina();
 lumen.use("requiredHeaders", Lumina.requiredHeaderValidator());
@@ -18,7 +9,9 @@ lumen.use("restrictedBodyFields", Lumina.restrictedBodyFieldValidator());
 lumen.use("permittedBodyFields", Lumina.permittedBodyFieldValidator());
 
 function defaultHandler(req, res, next) {
-    res.send(200);
+    res.status(200);
+    res.write("");
+    res.end();
     return next();
 }
 
@@ -43,14 +36,15 @@ var routes = [{
     requiredHeaders: ["x-application-key", "x-client-id"]
 }];
 
-for ( var i = 0; i < routes.length; ++i ) {
-    var d = routes[i];
-    var m = d.method;
-    var r = d.path;
-    delete d.method;
-    delete d.path;
-    d.handler = defaultHandler;
-    server[m](r, lumen.illuminate(d));
-}
-
-module.exports = server;
+module.exports = function(server) {
+    for ( var i = 0; i < routes.length; ++i ) {
+        var d = JSON.parse(JSON.stringify(routes[i]));
+        var m = d.method;
+        var r = d.path;
+        delete d.method;
+        delete d.path;
+        d.handler = defaultHandler;
+        server[m](r, lumen.illuminate(d));
+    }
+    return server;
+};

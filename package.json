@@ -1,9 +1,10 @@
 {
     "name": "lumina",
-    "description": "Route-by-route Restify request validator.",
+    "description": "Route-by-route Restify+Express request validator.",
     "version": "0.0.5",
     "keywords": [
         "restify",
+        "express",
         "REST",
         "validation"
     ],
@@ -13,10 +14,13 @@
         "url": "https://github.com/Eagerod/lumina.git"
     },
     "dependencies": {
-        "restify": "*"
     },
     "devDependencies": {
         "request" : "2.55.0",
+        "restify": "4.0.0",
+        "express": "4.13.3",
+        "body-parser": "1.13.3",
+        "async": "1.4.2",
         "jsdoc": "3.3.2",
         "eslint": "0.24.1",
         "nodeunit": "0.9.1",
@@ -27,9 +31,9 @@
         "author": "hajial@gmail.com"
     },
     "scripts": {
-        "test": "./node_modules/.bin/nodeunit tests/test.js",
+        "test": "./node_modules/.bin/nodeunit tests/test*.js",
         "docs": "./node_modules/.bin/jsdoc --recurse ./lib -d docs",
         "lint": "./node_modules/.bin/eslint .",
-        "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/nodeunit tests/test.js"
+        "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/nodeunit tests/test*.js"
     }
 }
