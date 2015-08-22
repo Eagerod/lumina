@@ -1,9 +1,7 @@
 # Lumina
 
-Lumina is a package designed to let you create custom route-by-route preprocessing
-and validation methods for your Restify server. 
-Processing methods are added to a middleware manager that allows you to select
-which routes have which validation methods executed on them.
+Lumina is a package designed to let you create custom route-by-route preprocessing and validation methods for your Restify server. 
+Processing methods are added to a middleware manager that allows you to select which routes have which validation methods executed on them.
 
 ## Usage
 
@@ -20,15 +18,15 @@ var lumen = new lumina();
 
 lumen.use("requiredBodyFields", lumina.requiredBodyFieldValidator());
 lumen.use("requiresAuthentication", function(forceAuth) {
-	return function(req, res, next, pass) {
-		if ( forceAuth == false ) {
-			return pass();
-		}
-		if ( req.authorization.credentials == "valid auth token" ) {
-			return pass();
-		}
-		return next(new restify.UnauthorizedError("You aren't authorized to access this resource"));
-	}
+    return function(req, res, next, pass) {
+        if ( forceAuth === false ) {
+            return pass();
+        }
+        if ( req.authorization.credentials === "valid auth token" ) {
+            return pass();
+        }
+        return next(new restify.UnauthorizedError("You aren't authorized to access this resource"));
+    };
 });
 ```
 
@@ -36,9 +34,9 @@ Then set up your routes to take advantage of the validators that are set up.
 
 ```javascript
 server.post("/models", lumen.illuminate({
-	requiredBodyFields : ["fieldA", "fieldB"],
-	handler : function(req, res, next) {
-		Model.create({a : req.body.fieldA, b : req.body.fieldB}, function() {
+	requiredBodyFields: ["fieldA", "fieldB"],
+	handler: function(req, res, next) {
+		Model.create({a: req.body.fieldA, b: req.body.fieldB}, function() {
 			res.send(201);
 			return next();
 		});
@@ -46,8 +44,8 @@ server.post("/models", lumen.illuminate({
 }));
 
 server.get("/models/:modelId", lumen.illuminate({
-	requiresAuthentication : true,
-	handler : function(req, res, next) {
+	requiresAuthentication: true,
+	handler: function(req, res, next) {
 		Model.fetch(req.params.modelId, function(model) {
 			res.send(200, model);
 			return next();
