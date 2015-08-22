@@ -2,8 +2,11 @@
 
 var request = require("request");
 var async = require("async");
-var express = require("./testExpress");
-var restify = require("./testServer");
+
+var servers = require("./testServer");
+
+var express = servers.express;
+var restify = servers.restify;
 
 function testRoute(test, route, method, json, headers, expectStatusCode, expectBody) {
     var testCount = (2 + (expectBody != null ? 2 : 0)) * 2;
