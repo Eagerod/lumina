@@ -1,20 +1,6 @@
 "use strict";
 
-var restify = require("restify");
-var express = require("express");
-
 var Lumina = require("../index");
-
-var restifyServer = restify.createServer({
-    name: "Restify-Validate Server",
-    version: "1.0.0"
-});
-
-restifyServer.use(restify.bodyParser());
-
-var expressServer = express();
-
-expressServer.use(require("body-parser").json());
 
 var lumen = new Lumina();
 lumen.use("requiredHeaders", Lumina.requiredHeaderValidator());
@@ -50,7 +36,7 @@ var routes = [{
     requiredHeaders: ["x-application-key", "x-client-id"]
 }];
 
-function makeServer(server) {
+module.exports = function(server) {
     for ( var i = 0; i < routes.length; ++i ) {
         var d = JSON.parse(JSON.stringify(routes[i]));
         var m = d.method;
@@ -61,7 +47,4 @@ function makeServer(server) {
         server[m](r, lumen.illuminate(d));
     }
     return server;
-}
-
-module.exports.restify = makeServer(restifyServer);
-module.exports.express = makeServer(expressServer);
+};

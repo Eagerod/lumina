@@ -31,9 +31,9 @@
         "author": "hajial@gmail.com"
     },
     "scripts": {
-        "test": "./node_modules/.bin/nodeunit tests/test.js",
+        "test": "./node_modules/.bin/nodeunit tests/testCreation.js tests/testRestify.js tests/testExpress.js",
         "docs": "./node_modules/.bin/jsdoc --recurse ./lib -d docs",
         "lint": "./node_modules/.bin/eslint .",
-        "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/nodeunit tests/test.js"
+        "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/nodeunit  tests/testCreation.js tests/testRestify.js tests/testExpress.js"
     }
 }
