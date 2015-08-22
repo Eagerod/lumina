@@ -25,12 +25,12 @@ lumen.use("requiresAuthentication", function(forceAuth) {
         if ( req.authorization.credentials === "valid auth token" ) {
             return pass();
         }
-		res.status(401);
-		res.send({
-			code: "UnauthorizedError",
-			message: "You aren't authorized to access this resource"
-		});
-		return next();
+        res.status(401);
+        res.send({
+            code: "UnauthorizedError",
+            message: "You aren't authorized to access this resource"
+        });
+        return next();
     };
 });
 ```
