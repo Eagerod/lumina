@@ -43,15 +43,15 @@ function testLuminaMethodFailure(successParam, luminaMethod) {
 }
 
 module.exports = {
-    testRequiredHeadersCreationSuccess: testLuminaMethodSuccess([], Lumina.requiredHeaderValidator()),
-    testRequiredHeadersCreationFailure: testLuminaMethodFailure("string", Lumina.requiredHeaderValidator()),
-    testRequiredBodyFieldsCreationSuccess: testLuminaMethodSuccess([], Lumina.requiredBodyFieldValidator()),
-    testRequiredBodyFieldsCreationFailure: testLuminaMethodFailure("string", Lumina.requiredBodyFieldValidator()),
-    testRestrictedBodyFieldsCreationSuccess: testLuminaMethodSuccess([], Lumina.restrictedBodyFieldValidator()),
-    testRestrictedBodyFieldsCreationFailure: testLuminaMethodFailure("string", Lumina.restrictedBodyFieldValidator()),
-    testPermittedBodyFieldsCreationSuccess: testLuminaMethodSuccess(["c", "d"], Lumina.permittedBodyFieldValidator()),
-    testPermittedBodyFieldsCreationFailure: testLuminaMethodFailure("string", Lumina.permittedBodyFieldValidator()),
-    testExtraLuminaConditions: function(test) {
+    "Required Headers Creation Success": testLuminaMethodSuccess([], Lumina.requiredHeaderValidator()),
+    "Required Headers Creation Failure": testLuminaMethodFailure("string", Lumina.requiredHeaderValidator()),
+    "Required Body Fields Creation Success": testLuminaMethodSuccess([], Lumina.requiredBodyFieldValidator()),
+    "Required Body Fields Creation Failure": testLuminaMethodFailure("string", Lumina.requiredBodyFieldValidator()),
+    "Restricted Body Fields Creation Success": testLuminaMethodSuccess([], Lumina.restrictedBodyFieldValidator()),
+    "Restricted Body Fields Creation Failure": testLuminaMethodFailure("string", Lumina.restrictedBodyFieldValidator()),
+    "Permitted Body Fields Creation Success": testLuminaMethodSuccess(["c", "d"], Lumina.permittedBodyFieldValidator()),
+    "Permitted Body Fields Creation Failure": testLuminaMethodFailure("string", Lumina.permittedBodyFieldValidator()),
+    "Extra Lumina Conditions": function(test) {
         test.expect(1);
         var lumina = new Lumina();
         lumina.use("paramer", function(params) { // eslint-disable-line no-unused-vars
@@ -68,7 +68,7 @@ module.exports = {
         });
         test.done();
     },
-    testDifferentHandlerName: function(test) {
+    "Different Handler Name": function(test) {
         test.expect(0);
         var lumina = new Lumina("gogogo");
         var handler = lumina.illuminate({
