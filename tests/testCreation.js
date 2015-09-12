@@ -42,6 +42,17 @@ function testLuminaMethodFailure(successParam, luminaMethod) {
     };
 }
 
+function booleanLuminaMethod(shouldWhatever) {
+    return function(req, res, next, pass) {
+        if ( shouldWhatever === true ) {
+            return pass();
+        }
+        else {
+            return pass();
+        }
+    };
+}
+
 module.exports = {
     "Required Headers Creation Success": testLuminaMethodSuccess([], Lumina.requiredHeaderValidator()),
     "Required Headers Creation Failure": testLuminaMethodFailure("string", Lumina.requiredHeaderValidator()),
@@ -51,6 +62,8 @@ module.exports = {
     "Restricted Body Fields Creation Failure": testLuminaMethodFailure("string", Lumina.restrictedBodyFieldValidator()),
     "Permitted Body Fields Creation Success": testLuminaMethodSuccess(["c", "d"], Lumina.permittedBodyFieldValidator()),
     "Permitted Body Fields Creation Failure": testLuminaMethodFailure("string", Lumina.permittedBodyFieldValidator()),
+    "Boolean-based Method Truthy Creation Success": testLuminaMethodSuccess(true, booleanLuminaMethod),
+    "Boolean-based Method Falsey Creation Success": testLuminaMethodSuccess(false, booleanLuminaMethod),
     "Extra Lumina Conditions": function(test) {
         test.expect(1);
         var lumina = new Lumina();
